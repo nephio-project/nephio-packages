@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nephio-webui
+  namespace: nephio-webui
+spec:
+  selector:
+    app: nephio-webui
+  ports:
+    - name: http
+      port: 7007
+      targetPort: http

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nephio-webui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nephio-webui
+  template:
+    metadata:
+      labels:
+        app: nephio-webui
+    spec:
+      containers:
+        - name: nephio-webui
+          image: gcr.io/kpt-dev/kpt-backstage-plugins/backstage-plugin-cad:v0.1.0
+          ports:
+            - name: http
+              containerPort: 7007
+          env:
+            - name: AUTH_GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: cad-google-oauth-client
+                  key: client-id
+                  optional: false
+            - name: AUTH_GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: cad-google-oauth-client
+                  key: client-secret
+                  optional: false
