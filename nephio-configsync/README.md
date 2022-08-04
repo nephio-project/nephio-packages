@@ -11,29 +11,11 @@ as the package instance.
 Thus, you could clone this package from the upstream Nephio repository, and
 modify the `repo` value, then store it in your organizational repository and
 consume it from there in the future. This would eliminate any need to customize
-package on each instantiation.
+package on each instantiation. If you are using a different type of repository
+with a different `repo` URL format, you may also have to adjust the
+configuration of in `apply-replacements.yaml`.
 
 This package is also configured for no Git authentication or authorization. See
 the Config Sync
 [documentation](https://cloud.google.com/anthos-config-management/docs/how-to/installing-config-sync#git-creds-secret)
 for details.
-
-## Usage
-
-### Fetch the package
-`kpt pkg get REPO_URI[.git]/PKG_PATH[@VERSION] nephio-configsync`
-
-Details: https://kpt.dev/reference/cli/pkg/get/
-
-### View package content
-`kpt pkg tree nephio-configsync`
-
-Details: https://kpt.dev/reference/cli/pkg/tree/
-
-### Apply the package
-```
-kpt live init nephio-configsync
-kpt live apply nephio-configsync --reconcile-timeout=2m --output=table
-```
-
-Details: https://kpt.dev/reference/cli/live/
