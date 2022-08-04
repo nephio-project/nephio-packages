@@ -3,16 +3,17 @@ kind: ApplyReplacements
 metadata:
   name: replacements-fn-config
 replacements:
-  - source:
-      kind: ConfigMap
-      name: kptfile.kpt.dev
-      fieldPath: data.[name]
-    targets:
-    - select:
-        group: configsync.gke.io
-        kind: RootSync
-      fieldPaths:
-        - spec.git.repo
-      options:
-        delimiter: /
-        index: 4
+- source:
+    kind: ConfigMap
+    name: kptfile.kpt.dev
+    fieldPath: data.name
+  targets:
+  - select:
+      group: configsync.gke.io
+      kind: RootSync
+      name: nephio-workload-cluster-sync
+    fieldPaths:
+    - spec.git.repo
+    options:
+      delimiter: /
+      index: 4

@@ -9,5 +9,5 @@ info:
   description: Package for the ConfigSync on Nephio workload clusters.
 pipeline:
   mutators:
-  - image: gcr.io/kpt-fn/set-namespace:v0.4.1
+  - image: gcr.io/kpt-fn/apply-replacements:v0.1.1
     configPath: apply-replacements.yaml
