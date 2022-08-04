@@ -1,0 +1,18 @@
+apiVersion: fn.kpt.dev/v1alpha1
+kind: ApplyReplacements
+metadata:
+  name: replacements-fn-config
+replacements:
+  - source:
+      kind: ConfigMap
+      name: kptfile.kpt.dev
+      fieldPath: data.[name]
+    targets:
+    - select:
+        group: configsync.gke.io
+        kind: RootSync
+      fieldPaths:
+        - spec.git.repo
+      options:
+        delimiter: /
+        index: 4
