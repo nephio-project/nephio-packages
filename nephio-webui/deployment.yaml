@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nephio-webui
-          image: gcr.io/kpt-dev/kpt-backstage-plugins/backstage-plugin-cad:v0.1.0
+          image: gcr.io/kpt-dev/kpt-backstage-plugins/backstage-plugin-cad:v0.1.1
           ports:
             - name: http
               containerPort: 7007
