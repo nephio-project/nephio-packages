@@ -1,0 +1,26 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: coredns-caching-scaled
+  annotations:
+    config.kubernetes.io/local-config: "true"
+upstream:
+  type: git
+  git:
+    repo: git@github.com:johnbelamaric/nephio-packages
+    directory: /coredns-caching
+    ref: main
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: git@github.com:johnbelamaric/nephio-packages
+    directory: /coredns-caching
+    ref: main
+    commit: ca3f153afc28196ec1ada7247802a4b1cc85eda0
+info:
+  description: CoreDNS application configured for the caching layer.
+pipeline:
+  mutators:
+    - image: gcr.io/kpt-fn/set-namespace:v0.4.1
+      configPath: package-context.yaml
