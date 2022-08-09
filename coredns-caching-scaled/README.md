@@ -1,20 +1,17 @@
 # coredns-caching
 
 ## Description
-CoreDNS application configured for the caching layer.
+CoreDNS application configured for the caching layer, with scaling profile.
 
 ## Usage
 
-This is a simple example package, requiring minimal customization for
-deployment. It creates a `Deployment`, `Service`, and `ConfigMap`. The
-`ConfigMap` is not intended to be customized, it sets up CoreDNS as a simple
-caching-only DNS server.
+This is an example of defining an API for configuring a package that is not
+package-specific, but does represent a common set of customizations made on
+packages.
 
-The namespace for the resources will be set based upon the `name` field in the
-`package-context.yaml` during the render pipeline. When using `kpt pkg get` with
-`--for-deployment` this value is automatically set to the local directory name.
-Similarly, when using `kpt alpha rpkg clone` or the Porch UI, this value is set
-to the `packageName` of the `PackageRevision`.
-
-Note that the `Namespace` resource itself is not created by this package, and
-must be provisioned another way.
+In this case, we have taken the original coredns-caching package and added a
+Nephio `ClusterScaleProfile` resource, along with functions that operate on that
+resource. This resource represents the interface by which the Nephio automation
+controller can modify this package for the particular cluster in which it is
+being deployed. It is important to design these resources and the functions that
+accept them as input, such that they can be used across many packages.

@@ -1,7 +1,7 @@
 apiVersion: infra.nephio.org/v1alpha1
 kind: ClusterScaleProfile
 metadata:
-  name: fn-config-scale-profile
+  name: scale-profile
   annotations:
     config.kubernetes.io/local-config: "true"
 autoscaling: false
