@@ -24,5 +24,5 @@ pipeline:
   mutators:
     - image: gcr.io/kpt-fn/set-namespace:v0.4.1
       configPath: package-context.yaml
-    - image: us-central1-docker.pkg.dev/jbelamaric-dev/nephio-dev/apply-scale-profile:v0.1
+    - image: gcr.io/jbelamaric-public/apply-scale-profile:v0.0.1
       configPath: fn-config-apply-scale-profile.yaml
