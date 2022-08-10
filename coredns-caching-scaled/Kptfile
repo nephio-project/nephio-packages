@@ -7,17 +7,17 @@ metadata:
 upstream:
   type: git
   git:
-    repo: git@github.com:johnbelamaric/nephio-packages
+    repo: https://github.com/nephio-project/nephio-packages
     directory: /coredns-caching
-    ref: main
+    ref: coredns-caching/v1
   updateStrategy: resource-merge
 upstreamLock:
   type: git
   git:
-    repo: git@github.com:johnbelamaric/nephio-packages
+    repo: https://github.com/nephio-project/nephio-packages
     directory: /coredns-caching
-    ref: main
-    commit: ca3f153afc28196ec1ada7247802a4b1cc85eda0
+    ref: coredns-caching/v1
+    commit: 8e5900fe3e6e69516c5207977e5c836884cb9cf4
 info:
   description: CoreDNS application configured for the caching layer.
 pipeline:
