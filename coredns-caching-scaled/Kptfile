@@ -7,14 +7,14 @@ metadata:
 upstream:
   type: git
   git:
-    repo: https://github.com/nephio-project/nephio-packages
+    repo: https://github.com/nephio-project/nephio-packages.git
     directory: /coredns-caching
     ref: coredns-caching/v1
   updateStrategy: resource-merge
 upstreamLock:
   type: git
   git:
-    repo: https://github.com/nephio-project/nephio-packages
+    repo: https://github.com/nephio-project/nephio-packages.git
     directory: /coredns-caching
     ref: coredns-caching/v1
     commit: 8e5900fe3e6e69516c5207977e5c836884cb9cf4
