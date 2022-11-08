@@ -265,6 +265,25 @@ rules:
   verbs:
   - update
 - apiGroups:
+  - porch.kpt.dev
+  resources:
+  - packagerevisions
+  - packagerevisionresources
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - automation.nephio.org
+  resources:
+  - packagedeployments/finalizers
+  verbs:
+  - update
+- apiGroups:
   - automation.nephio.org
   resources:
   - packagedeployments/status
@@ -436,6 +455,7 @@ spec:
         command:
         - /manager
         image: us-central1-docker.pkg.dev/pure-faculty-367518/nephio-workshop/package-deployment-controller:latest
+          #image: gcr.io/jbelamaric-public/package-deployment-controller:latest
         livenessProbe:
           httpGet:
             path: /healthz
