@@ -35,7 +35,7 @@ spec:
       serviceAccountName: porch-fn-runner
       containers:
         - name: function-runner
-          image: gcr.io/kpt-dev/porch-function-runner:v0.0.8
+          image: gcr.io/kpt-dev/porch-function-runner:v0.0.12
           imagePullPolicy: IfNotPresent
           command:
             - /server
@@ -44,7 +44,7 @@ spec:
             - --pod-namespace=porch-fn-system
           env:
             - name: WRAPPER_SERVER_IMAGE
-              value: gcr.io/kpt-dev/porch-wrapper-server:v0.0.8
+              value: gcr.io/kpt-dev/porch-wrapper-server:v0.0.12
           ports:
             - containerPort: 9445
           # Add grpc readiness probe to ensure the cache is ready

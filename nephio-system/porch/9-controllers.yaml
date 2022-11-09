@@ -38,61 +38,15 @@ spec:
       containers:
       - name: porch-controllers
         # Update to the image of your porch-controllers build.
-        image: gcr.io/kpt-dev/porch-controllers:v0.0.8
+        image: gcr.io/kpt-dev/porch-controllers:v0.0.12
         env:
+        - name: ENABLE_WORKLOADIDENTITYBINDINGS
+          value: "true"
+        - name: ENABLE_REMOTEROOTSYNCSETS
+          value: "true"
+        - name: ENABLE_ROOTSYNCSETS
+          value: "true"
         - name: GCP_PROJECT_ID
           value: example-google-project-id
         - name: HACK_ENABLE_LOOPBACK
           value: "1"
----
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: porch-controllers
-rules:
-- apiGroups:
-  - config.porch.kpt.dev
-  resources:
-  - repositories
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-- apiGroups:
-  - config.cloud.google.com
-  resources:
-  - remoterootsyncsets
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-- apiGroups:
-  - config.cloud.google.com
-  resources:
-  - remoterootsyncsets/status
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: porch-system:porch-controllers
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: porch-controllers
-subjects:
-- kind: ServiceAccount
-  name: porch-controllers
-  namespace: porch-system

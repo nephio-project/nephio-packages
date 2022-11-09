@@ -44,7 +44,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: "RepositorySpec defines the desired state of Repository \n Notes: * deployment repository - in KRM API ConfigSync would be configured directly? (or via this API)"
+            description: "RepositorySpec defines the desired state of Repository \n Notes: - deployment repository - in KRM API ConfigSync would be configured directly? (or via this API)"
             properties:
               content:
                 description: 'Content stored in the repository (i.e. Function, Package - the literal values correspond to the API resource names). TODO: support repository with mixed content?'
@@ -59,8 +59,11 @@ spec:
                 description: Git repository details. Required if `type` is `git`. Ignored if `type` is not `git`.
                 properties:
                   branch:
-                    description: Name of the branch containig the packages. Finalized packages will be committed to this branch (if the repository allows write access). If unspecified, defaults to "main".
+                    description: Name of the branch containing the packages. Finalized packages will be committed to this branch (if the repository allows write access). If unspecified, defaults to "main".
                     type: string
+                  createBranch:
+                    description: CreateBranch specifies if Porch should create the package branch if it doesn't exist.
+                    type: boolean
                   directory:
                     description: Directory within the Git repository where the packages are stored. A subdirectory of this directory containing a Kptfile is considered a package. If unspecified, defaults to root directory.
                     type: string
@@ -130,8 +133,11 @@ spec:
                     description: Git repository details. Required if `type` is `git`. Must be unspecified if `type` is not `git`.
                     properties:
                       branch:
-                        description: Name of the branch containig the packages. Finalized packages will be committed to this branch (if the repository allows write access). If unspecified, defaults to "main".
+                        description: Name of the branch containing the packages. Finalized packages will be committed to this branch (if the repository allows write access). If unspecified, defaults to "main".
                         type: string
+                      createBranch:
+                        description: CreateBranch specifies if Porch should create the package branch if it doesn't exist.
+                        type: boolean
                       directory:
                         description: Directory within the Git repository where the packages are stored. A subdirectory of this directory containing a Kptfile is considered a package. If unspecified, defaults to root directory.
                         type: string
