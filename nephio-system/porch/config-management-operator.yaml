@@ -49,6 +49,10 @@ spec:
                   all ConfigSync pods. This field is intentionally left hidden/undocumented
                   since it is really only used to gather extra logs for support cases.
                 type: integer
+              allowVerticalScale:
+                description: 'AllowVerticalScale specifies if the vertical autoscaler
+                  is enabled. Default: false.'
+                type: boolean
               binauthz:
                 description: BinAuthz enables Binary Authorization as recognized by
                   the "binauthz.configmanagement.gke.io" label set to "true".
@@ -441,11 +445,11 @@ spec:
         - /manager
         - --private-registry=
         name: manager
-        image: gcr.io/config-management-release/config-management-operator:20220707000119-op
+        image: gcr.io/config-management-release/config-management-operator:20221007213051-op
         resources:
           requests:
             cpu: 100m
-            memory: 100Mi
+            memory: 200Mi
         envFrom:
         - configMapRef:
             name: operator-environment-options
