@@ -24,6 +24,29 @@ rules:
   - create
   - delete
 - apiGroups:
+  - porch.kpt.dev
+  resources:
+  - packagerevisionresources
+  - packagerevisions
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - create
+  - delete
+- apiGroups:
+  - porch.kpt.dev
+  resources:
+  - packagerevisionresources/status
+  - packagerevisions/status
+  - packagerevisions/approval
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
   - infra.nephio.org
   resources:
   - clustercontexts
