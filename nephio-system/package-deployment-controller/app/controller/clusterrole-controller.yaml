@@ -76,3 +76,22 @@ rules:
   - patch
   - create
   - delete
+- apiGroups:
+  - nf.nephio.org
+  resources:
+  - fivegcoretopologies
+  - fivegcoretopologies/status
+  - upfclasses
+  - upfclasses/status
+  - upfdeployments
+  - upfdeployments/status
+  - upfs
+  - upfs/status
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - create
+  - delete
