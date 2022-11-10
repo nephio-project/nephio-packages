@@ -42,3 +42,15 @@ rules:
   - patch
   - create
   - delete
+- apiGroups:
+  - automation.nephio.org
+  resources:
+  - packagedeployments
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - create
+  - delete
