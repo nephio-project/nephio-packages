@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nephio-webui
+  namespace: nephio-webui
 spec:
   replicas: 1
   selector:
@@ -12,22 +13,26 @@ spec:
       labels:
         app: nephio-webui
     spec:
+      serviceAccountName: nephio-webui-sa
+      terminationGracePeriodSeconds: 10
       containers:
-        - name: nephio-webui
-          image: gcr.io/kpt-dev/kpt-backstage-plugins/backstage-plugin-cad:v0.1.1
-          ports:
-            - name: http
-              containerPort: 7007
-          env:
-            - name: AUTH_GOOGLE_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: cad-google-oauth-client
-                  key: client-id
-                  optional: false
-            - name: AUTH_GOOGLE_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: cad-google-oauth-client
-                  key: client-secret
-                  optional: false
+      - name: main
+        image: gcr.io/kpt-dev/kpt-backstage-plugins/backstage-plugin-cad:unstable
+        imagePullPolicy: Always
+        args:
+        - "--config"
+        - /etc/config/app-config.nephio.yaml
+        ports:
+        - name: http
+          containerPort: 7007
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 7007
+      volumes:
+      - name: config-volume
+        configMap:
+          name: nephio-webui-config
