@@ -7,7 +7,4 @@ metadata:
 info:
   site: https://nephio.org
   description: Package for the Nephio Web UI.
-pipeline:
-  mutators:
-  - image: gcr.io/kpt-fn/set-namespace:v0.4.1
-    configPath: package-context.yaml
+pipeline: {}

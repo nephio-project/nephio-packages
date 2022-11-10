@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nephio-webui-config
+  namespace: nephio-webui
+data:
+  app-config.nephio.yaml: |
+    # Backstage backend configuration
+    backend:
+      # Content Security Policy
+      csp:
+        # Allows images to be pulled from GitHub and Nepio
+        img-src: ["'self'", 'data:', 'https://raw.githubusercontent.com', 'https://nephio.org']
+
+    # Config as Data Plugin configuration
+    configAsData:
+      # The namespace where Porch managed resources live.
+      resourcesNamespace: default
+
+      # Do not use Config Sync
+      gitOpsDeliveryTool: none
+
+      # Management cluster configuration
+      clusterLocatorMethod:
+        # Authenitcate to the K8S API Server with the Pod's Service Account
+        authProvider: current-context
+
+      # Nephio branding customizations
+      branding:
+        title: Nephio
+        header:
+          logoUrl: https://raw.githubusercontent.com/nephio-project/one-summit-22-workshop/main/images/nephio_logo_colorwhite_horizontal.svg
+          backgroundImageUrl: https://nephio.org/wp-content/uploads/sites/6/2022/04/Hero-1.png
