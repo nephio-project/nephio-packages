@@ -8,6 +8,6 @@ metadata:
 spec:
   sourceFormat: unstructured
   git:
-    repo: https://github.com/nephio-johnbelamaric/test-edge-01
+    repo: https://github.com/nephio-test/test-edge-01
     branch: main
     auth: none
