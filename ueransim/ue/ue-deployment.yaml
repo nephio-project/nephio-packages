@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ueransim-ue
+  labels:
+    app.kubernetes.io/version: "v3.2.6"
+    app: ueransim
+    component: ue
+spec:
+  selector:
+    matchLabels:
+      app: ueransim
+      component: ue
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ueransim
+        component: ue
+    spec:
+      containers:
+      - image: towards5gs/ueransim-ue:v3.2.6
+        imagePullPolicy: IfNotPresent
+        name: ue
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]
+        command: ["/ueransim/config/wrapper.sh"]
+        volumeMounts:
+        - mountPath: /ueransim/config
+          name: ue-volume
+        resources:
+            requests:
+              cpu: 120m
+              memory: 128Mi
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+
+      volumes:
+      - name: ue-volume
+        configMap:
+          name: ue-configmap
+          items:
+          - key: ue-config.yaml
+            path: ue-config.yaml
+          - key: wrapper.sh
+            path: wrapper.sh
+            mode: 0755

@@ -1,0 +1,30 @@
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: n2network-ueransim-ueransim
+  namespace: default
+spec:
+  config: '{
+      "cniVersion": "0.3.1",
+      "plugins": [
+        {
+          "type": "macvlan",
+          "capabilities": { "ips": true },
+          "master": "ens3",
+          "mode": "bridge",
+          "ipam": {
+            "type": "static",
+            "routes": [
+              {
+                "dst": "0.0.0.0/0",
+                "gw": "10.100.50.254"
+              }
+            ] 
+          }
+        }, {
+          "capabilities": { "mac": true },
+          "type": "tuning"
+        }
+      ]
+    }'

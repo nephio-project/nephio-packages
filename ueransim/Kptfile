@@ -1,0 +1,12 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: ueransim
+  annotations:
+    config.kubernetes.io/local-config: "true"
+info:
+  description: this package represents ueransim NFs, which are required to perfirm E2E conn testing
+pipeline:
+  mutators:
+    - image: gcr.io/kpt-fn/set-namespace:v0.4.1
+      configPath: package-context.yaml
