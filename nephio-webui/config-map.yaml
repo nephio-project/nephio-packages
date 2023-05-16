@@ -16,7 +16,7 @@ data:
       # Content Security Policy
       csp:
         # Allows images to be pulled from GitHub and Nepio
-        img-src: ["'self'", 'data:', 'https://raw.githubusercontent.com', 'https://nephio.org']
+        img-src: ["'self'", 'data:']
 
     # Config as Data Plugin configuration
     configAsData:
@@ -35,5 +35,5 @@ data:
       branding:
         title: Nephio
         header:
-          logoUrl: https://raw.githubusercontent.com/nephio-project/one-summit-22-workshop/main/images/nephio_logo_colorwhite_horizontal.svg
-          backgroundImageUrl: https://nephio.org/wp-content/uploads/sites/6/2022/04/Hero-1.png
+          logoUrl: /images/nephio_logo_colorwhite_horizontal.svg
+          backgroundImageUrl: /images/nephio-background.png

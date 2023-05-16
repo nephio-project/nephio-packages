@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: main
-        image: gcr.io/kpt-dev/kpt-backstage-plugins/backstage-plugin-cad:nephio
+        image: nephio/kpt-backstage-plugins:1658540988043366400
         imagePullPolicy: Always
         args:
         - "--config"
