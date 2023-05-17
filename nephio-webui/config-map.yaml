@@ -35,5 +35,5 @@ data:
       branding:
         title: Nephio
         header:
-          logoUrl: /images/nephio_logo_colorwhite_horizontal.svg
-          backgroundImageUrl: /images/nephio-background.png
+          logoUrl: http://localhost:7007/nephio_logo_colorwhite_horizontal.svg
+          backgroundImageUrl: http://localhost:7007/nephio-background.png
