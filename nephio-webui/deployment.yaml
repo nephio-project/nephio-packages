@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: main
-        image: nephio/kpt-backstage-plugins:v1.0.1-beta.1
+        image: nephio/kpt-backstage-plugins:v1.0.1
         imagePullPolicy: IfNotPresent
         args:
         - "--config"
