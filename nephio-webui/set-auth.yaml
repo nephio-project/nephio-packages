@@ -1,0 +1,71 @@
+apiVersion: fn.kpt.dev/v1alpha1
+kind: StarlarkRun
+metadata:
+  name: set-auth
+  annotations:
+    config.kubernetes.io/local-config: "true"
+services:
+  google:
+    enabled: false
+    secretName: nephio-google-oauth-client
+source: |-
+  load("krmfn.star", "krmfn")
+  def ensure_env(list, env):
+    # looks through the list and adds or updates the env
+    idx = -1
+    for i in range(len(list)):
+      if list[i]["name"] == env["name"]:
+        idx = i
+    if idx > -1:
+      list[idx] = env
+    else:
+      list.append(env)
+  def remove_env(list, name):
+    idx = -1
+    for i in range(len(list)):
+      if list[i]["name"] == name:
+        idx = i
+    if idx > -1:
+      list.pop(idx)
+  def find_main_container_env(resources):
+    for r in resources:
+      if krmfn.match_gvk(r, "apps/v1", "Deployment") and krmfn.match_name(r, "nephio-webui"):
+        for c in r["spec"]["template"]["spec"]["containers"]:
+          if c["name"] == "main":
+            if "env" not in c:
+              c["env"] = []
+            return c["env"]
+    return {}
+  def set_google_auth(resources, config):
+    clientIdEnv = {
+      "name": "AUTH_GOOGLE_CLIENT_ID",
+      "valueFrom": {
+        "secretKeyRef": {
+          "name": config["secretName"],
+          "key": "client-id",
+          "optional": "false",
+        },
+      },
+    }
+    clientSecretEnv = {
+      "name": "AUTH_GOOGLE_CLIENT_SECRET",
+      "valueFrom": {
+        "secretKeyRef": {
+          "name": config["secretName"],
+          "key": "client-secret",
+          "optional": "false",
+        },
+      },
+    }
+    env = find_main_container_env(resources)
+    if config["enabled"]:
+      ensure_env(env, clientIdEnv)
+      ensure_env(env, clientSecretEnv)
+    else:
+      remove_env(env, "AUTH_GOOGLE_CLIENT_ID")
+      remove_env(env, "AUTH_GOOGLE_CLIENT_SECRET")
+  def set_auth_services(resources, services):
+    for service in services:
+      if service == "google":
+        set_google_auth(resources, services[service])
+  set_auth_services(ctx.resource_list["items"], ctx.resource_list["functionConfig"]["services"])
