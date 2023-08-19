@@ -11,3 +11,5 @@ pipeline:
   mutators:
   - image: gcr.io/kpt-fn/starlark:v0.5.0
     configPath: set-auth.yaml
+  - image: docker.io/nephio/gen-configmap-fn:latest
+    configPath: gen-configmap.yaml

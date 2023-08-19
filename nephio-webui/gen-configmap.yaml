@@ -1,0 +1,48 @@
+apiVersion: fn.kpt.dev/v1alpha1
+kind: GenConfigMap
+metadata:
+  name: gen-app-config
+  annotations:
+    config.kubernetes.io/local-config: "true"
+configMapMetadata:
+  name: nephio-webui-config
+  namespace: nephio-webui
+params:
+  hostname: localhost
+  port: "7007"
+data:
+- type: gotmpl
+  key: app-config.nephio.yaml
+  value: |
+    # Backstage backend configuration
+    backend:
+      # Note that the baseUrl should be the URL that the browser and other clients
+      # should use when communicating with the backend, i.e. it needs to be
+      # reachable not just from within the backend host, but from all of your
+      # callers. When its value is "http://localhost:7007", it's strictly private
+      # and can't be reached by others.
+      baseUrl: http://{{.hostname}}:{{.port}}
+      # Content Security Policy
+      csp:
+        # Allows images to be pulled from GitHub and Nepio
+        img-src: ["'self'", 'data:']
+
+    # Config as Data Plugin configuration
+    configAsData:
+      # The namespace where Porch managed resources live.
+      resourcesNamespace: default
+
+      # Do not use Config Sync
+      gitOpsDeliveryTool: none
+
+      # Management cluster configuration
+      clusterLocatorMethod:
+        # Authenitcate to the K8S API Server with the Pod's Service Account
+        authProvider: current-context
+
+      # Nephio branding customizations
+      branding:
+        title: Nephio
+        header:
+          logoUrl: http://{{.hostname}}:{{.port}}/nephio_logo_colorwhite_horizontal.svg
+          backgroundImageUrl: http://{{.hostname}}:{{.port}}/nephio-background.png

@@ -20,7 +20,7 @@ spec:
         image: nephio/kpt-backstage-plugins:v1.0.1
         imagePullPolicy: IfNotPresent
         args:
-        - "--config"
+        - --config
         - /etc/config/app-config.nephio.yaml
         ports:
         - name: http
@@ -32,6 +32,7 @@ spec:
           httpGet:
             path: /
             port: 7007
+        env: []
       volumes:
       - name: config-volume
         configMap:
