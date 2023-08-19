@@ -12,7 +12,7 @@ data:
       # reachable not just from within the backend host, but from all of your
       # callers. When its value is "http://localhost:7007", it's strictly private
       # and can't be reached by others.
-      baseUrl: http://localhost:7007 # kpt-set: ${backend-base-url}
+      baseUrl: http://localhost:7007
       # Content Security Policy
       csp:
         # Allows images to be pulled from GitHub and Nepio
