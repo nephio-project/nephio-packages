@@ -32,7 +32,11 @@ spec:
           httpGet:
             path: /
             port: 7007
-        env: []
+        env:
+        - name: AUTH_PROVIDER
+          value: current-context
+        - name: AUTH_OIDC_TOKEN_PROVIDER
+          value: okta
       volumes:
       - name: config-volume
         configMap:

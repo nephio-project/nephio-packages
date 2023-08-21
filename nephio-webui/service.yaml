@@ -4,6 +4,7 @@ metadata:
   name: nephio-webui
   namespace: nephio-webui
 spec:
+  type: ClusterIP
   selector:
     app: nephio-webui
   ports:

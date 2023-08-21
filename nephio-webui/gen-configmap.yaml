@@ -8,12 +8,18 @@ configMapMetadata:
   name: nephio-webui-config
   namespace: nephio-webui
 params:
+  scheme: http
   hostname: localhost
   port: "7007"
+  resourcesNamespace: default
+  authProvider: oidc
 data:
 - type: gotmpl
   key: app-config.nephio.yaml
   value: |
+    app:
+      baseUrl: {{.scheme}}://{{.hostname}}:{{.port}}
+
     # Backstage backend configuration
     backend:
       # Note that the baseUrl should be the URL that the browser and other clients
@@ -21,28 +27,53 @@ data:
       # reachable not just from within the backend host, but from all of your
       # callers. When its value is "http://localhost:7007", it's strictly private
       # and can't be reached by others.
-      baseUrl: http://{{.hostname}}:{{.port}}
+      baseUrl: {{.scheme}}://{{.hostname}}:{{.port}}
+
+      listen:
+        port: {{.port}}
+
       # Content Security Policy
       csp:
         # Allows images to be pulled from GitHub and Nepio
         img-src: ["'self'", 'data:']
+        upgrade-insecure-requests: false
+
+    auth:
+      # see https://backstage.io/docs/auth/ to learn about auth providers
+      providers:
+        google:
+          development:
+            clientId: ${AUTH_GOOGLE_CLIENT_ID}
+            clientSecret: ${AUTH_GOOGLE_CLIENT_SECRET}
+        okta:
+          development:
+            clientId: ${AUTH_OKTA_CLIENT_ID}
+            clientSecret: ${AUTH_OKTA_CLIENT_SECRET}
+            audience: ${AUTH_OKTA_AUDIENCE}
+            authServerId: ${AUTH_OKTA_AUTH_SERVER_ID}
+            idp: ${AUTH_OKTA_IDP}
 
     # Config as Data Plugin configuration
     configAsData:
       # The namespace where Porch managed resources live.
-      resourcesNamespace: default
+      resourcesNamespace: {{.resourcesNamespace}}
 
       # Do not use Config Sync
       gitOpsDeliveryTool: none
 
       # Management cluster configuration
       clusterLocatorMethod:
-        # Authenitcate to the K8S API Server with the Pod's Service Account
-        authProvider: current-context
+        authProvider: ${AUTH_PROVIDER}
+
+        # For authProvider: oidc
+        oidcTokenProvider: ${AUTH_OIDC_TOKEN_PROVIDER}
+
+        # For authProvider: service-account
+        serviceAccountToken: ${AUTH_SERVICE_ACCOUNT_TOKEN}
 
       # Nephio branding customizations
       branding:
         title: Nephio
         header:
-          logoUrl: http://{{.hostname}}:{{.port}}/nephio_logo_colorwhite_horizontal.svg
-          backgroundImageUrl: http://{{.hostname}}:{{.port}}/nephio-background.png
+          logoUrl: {{.scheme}}://{{.hostname}}:{{.port}}/nephio_logo_colorwhite_horizontal.svg
+          backgroundImageUrl: {{.scheme}}://{{.hostname}}:{{.port}}/nephio-background.png
