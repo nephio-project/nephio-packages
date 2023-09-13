@@ -22,8 +22,8 @@ data:
 
       # Content Security Policy
       csp:
-        # Allows images to be pulled from GitHub and Nepio
-        img-src: ["'self'", 'data:']
+        # Allows images to be pulled from GitHub and Nephio
+        img-src: ["'self'", 'data:', 'https://raw.githubusercontent.com']
         upgrade-insecure-requests: false
 
     auth:
@@ -63,5 +63,5 @@ data:
       branding:
         title: Nephio
         header:
-          logoUrl: http://localhost:7007/nephio_logo_colorwhite_horizontal.svg
-          backgroundImageUrl: http://localhost:7007/nephio-background.png
+          logoUrl: https://raw.githubusercontent.com/nephio-project/kpt-backstage-plugins/v1.0.1/packages/app/public/nephio_logo_colorwhite_horizontal.svg
+          backgroundImageUrl: https://raw.githubusercontent.com/nephio-project/kpt-backstage-plugins/v1.0.1/packages/app/public/nephio-background.png

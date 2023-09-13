@@ -21,6 +21,7 @@ source: |-
     for i in range(len(list)):
       if list[i]["name"] == env["name"]:
         idx = i
+        break
     if idx > -1:
       list[idx] = env
     else:
@@ -30,6 +31,7 @@ source: |-
     for i in range(len(list)):
       if list[i]["name"] == name:
         idx = i
+        break
     if idx > -1:
       list.pop(idx)
   def find_main_container_env(resources):
