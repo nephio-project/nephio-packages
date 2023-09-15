@@ -30,7 +30,7 @@ source: |-
     for i in range(len(list)):
       if list[i]["name"] == name:
         list.pop(i)
-        break   
+        break
   def find_main_container_env(resources):
     for r in resources:
       if krmfn.match_gvk(r, "apps/v1", "Deployment") and krmfn.match_name(r, "nephio-webui"):
