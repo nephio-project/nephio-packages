@@ -27,13 +27,10 @@ source: |-
     else:
       list.append(env)
   def remove_env(list, name):
-    idx = -1
     for i in range(len(list)):
       if list[i]["name"] == name:
-        idx = i
-        break
-    if idx > -1:
-      list.pop(idx)
+        list.pop(i)
+        break   
   def find_main_container_env(resources):
     for r in resources:
       if krmfn.match_gvk(r, "apps/v1", "Deployment") and krmfn.match_name(r, "nephio-webui"):
