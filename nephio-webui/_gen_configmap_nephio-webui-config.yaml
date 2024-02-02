@@ -63,5 +63,5 @@ data:
       branding:
         title: Nephio
         header:
-          logoUrl: https://raw.githubusercontent.com/nephio-project/kpt-backstage-plugins/v1.0.1/packages/app/public/nephio_logo_colorwhite_horizontal.svg
-          backgroundImageUrl: https://raw.githubusercontent.com/nephio-project/kpt-backstage-plugins/v1.0.1/packages/app/public/nephio-background.png
+          logoUrl: https://raw.githubusercontent.com/nephio-project/kpt-backstage-plugins/v2.0.0/packages/app/public/nephio_logo_colorwhite_horizontal.svg
+          backgroundImageUrl: https://raw.githubusercontent.com/nephio-project/kpt-backstage-plugins/v2.0.0/packages/app/public/nephio-background.png
